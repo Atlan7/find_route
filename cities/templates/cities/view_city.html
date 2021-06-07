@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ city.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md">
+            <p> Назвазние города: {{ city.name }}</p>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'cities:view_city'  %}">
+                <button type="button" class="btn btn-primary"> Go back to all cities </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'cities:view_cities'  %}">
+                <button type="button" class="btn btn-primary"> Go back to all cities </button>
+            </a>
+        </div>
+    </div>
+{% endblock %}
