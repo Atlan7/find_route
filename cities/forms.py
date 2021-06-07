@@ -1,10 +1,16 @@
 from django import forms
 
-from .models import Cities
+from .models import City
 
-class CreateCityForm(forms.Form):
-    name_of_city = forms.CharField(label='name of city', max_lenght=100, widget=froms.TextInput(attrs={'class': 'form-control'}))
 
+# class AddCityForm(forms.Form):
+#     name = forms.CharField(label='City')
+
+class AddCityForm(forms.ModelForm):
     class Meta:
-        model = Cities
-        fields = ('name_of_city')
+        model = City
+        fields = ['name']
+        widgets = {'name': forms.TextInput(attrs={
+        	'class': 'form-control',
+        	'placeholder': 'Put name of the city'
+        	})}

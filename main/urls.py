@@ -1,5 +1,4 @@
 """main URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
@@ -18,8 +17,10 @@ from django.urls import path, include
 
 from .views import home
 
+# TODO: move add_city into cities urls and call the cities include!
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', home, name='home'),
+    path('cities/', include(('cities.urls', 'cities'), namespace='cities')),
 ]
