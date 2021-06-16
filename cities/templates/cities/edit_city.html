@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block title %}
-	Editing city
+	Editing the city
 {% endblock %}
 
 {% block content %}
-	<h2> Editing city </h2>
 
-	<div class="container">
-	    <div class="col-md-4">
-	        <form action="" method="post">
 
-	            {% csrf_token %}
+    {% include "inc/_form.html" with header="<h2> Editing city </h2>" btn_class="btn btn-primary btn-block" btn_message="Edit city"%}
 
-	            {{ form.as_p }}
+    <br>
 
-	            <button type="submit" class="btn btn-primary btn-block"> 
-	                Edit city 
-	            </button>
-	        </form>
-	    </div>
-	</div>
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <a href="{% url 'cities:delete_city' city_pk=city.pk %}" class="text-decoration-none">
+                <button type="submit" class="btn btn-danger btn-block">
+                    Delete city
+                </button>
+            </a>
+        </div>
+    </div>
+
 {% endblock %}

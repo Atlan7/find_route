@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load subtract %}
+
+{% block title %}
+    View trains
+{% endblock %}
+
+{% block content %}
+
+    <div class="row" >
+        <div class="col-md-10 mx-auto my-1">
+            <h1>  Trains schedule </h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> № </th>
+                        <th> From </th>
+                        <th> To </th>
+                        <th> Departs </th>
+                        <th> Arrives </th>
+                        <th> Total </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for train in trains %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'trains:view_train' train_pk=train.pk %}"> {{ train.train_number }} </a>
+                        </td>
+                        <td>
+                            {{ train.from_city }}
+                        </td>
+                        <td>
+                            {{ train.to_city }}
+                        </td>
+                        <td>
+                            {{ train.trip_start_time|date:"d/m/y, H:i"}}
+                        </td>
+                        <td>
+                            {{ train.trip_end_time|date:"d/m/y, H:i" }}
+                        </td>
+                        <td>
+                            {{ train.trip_end_time|subtract_date:train.trip_start_time }}
+                        </td>
+                        <td>
+                            <a href="{% url 'trains:edit_train' train_pk=train.pk %}" class="text-decoration-none">
+                                <button type="submit" class="btn btn-primary ">
+                                    Edit 
+                                </button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'trains:delete_train' train_pk=train.pk %}">
+                                <button type="submit" class="btn btn-danger ">
+                                    Delete 
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="my-3">
+        {% include "inc/_paginantion.html" %}
+    </div>
+{% endblock %}

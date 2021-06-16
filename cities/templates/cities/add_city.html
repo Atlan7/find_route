@@ -1,33 +1,23 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Add the city
+    Adding the city
 {% endblock %}
 
 {% block content %}
-    <h2> Add the City </h2>
+
     <div class="container">
-        <div class="col-md-4">
-            <form action="{% url 'cities:add_city' %}" method="post">
-
-                {% csrf_token %}
-
-                {{ form.as_p }}
-
-                <button type="submit" class="btn btn-primary btn-block"> 
-                    Add the city 
-                </button>
-            </form>
-
-            <br>
-
-            <a href="{% url 'cities:view_cities' %}">
-                <button type="submit" class="btn btn-primary btn-block"> 
-                    View all cities
-                </button>
-            </a>
-        </div>
+        {% include "inc/_form.html" with header="<h2> Adding the city </h2>"  btn_class="btn btn-primary btn-block" btn_message="Add the city"%}
     </div>
-   
+
+    <br>
+
+    <div class="col-md-5 mx-auto">
+        <a href="{% url 'cities:view_cities' %}" class="text-decoration-none">
+            <button type="submit" class="btn btn-primary btn-block"> 
+                View all cities
+            </button>
+        </a>
+    </div>
 
 {% endblock %}

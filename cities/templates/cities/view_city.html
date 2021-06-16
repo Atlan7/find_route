@@ -1,31 +1,27 @@
 {% extends "base.html" %}
 
+
 {% block title %}
     {{ city.name }}
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md">
-            <p> Name of the city: {{ city.name }}</p>
-        </div>
-    </div>
-
-    <br>
 
     <div class="row">
-        <div class="col-md-4">
-            <a href="{% url 'cities:view_city'  %}">
-                <button type="button" class="btn btn-primary"> Go back to all cities </button>
+        <div class="col-md-5 mx-auto my-5">
+            <h4> Name of the city: {{ city.name }}</h4>
+            <a href="{% url 'cities:view_cities'  %}" class="text-decoration-none">
+                <button type="button" class="btn btn-primary btn-block" >
+                    Go back to all cities
+                </button>
+            </a>
+            <br>
+            <a href="{% url 'cities:edit_city' city_pk=city.pk   %}" class="text-decoration-none">
+                <button type="button" class="btn btn-primary btn-block"> 
+                    Edit city
+                </button>
             </a>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <a href="{% url 'cities:view_cities'  %}">
-                <button type="button" class="btn btn-primary"> Go back to all cities </button>
-            </a>
-        </div>
-    </div>
 {% endblock %}

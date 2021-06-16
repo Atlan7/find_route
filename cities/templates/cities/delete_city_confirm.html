@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Deleting the city
+{% endblock %}
+
+{% block content %}
+
+    <h2> Deleting the city: </h2>
+
+    <div class="container">
+        <h5>{{city.name}}</h5>
+
+        {% include "inc/_form.html" with btn_class="btn btn-danger btn-block" btn_message="Delete city"%}
+    </div>
+
+    <br>
+
+    <div class="col-md-5">
+        <a href="{% url 'cities:view_cities' %}" class="text-decoration-none">
+            <button type="submit" class="btn btn-primary btn-block">
+                View all cities
+            </button>
+        </a>
+    </div>
+
+{% endblock %}
