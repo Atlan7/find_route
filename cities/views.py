@@ -1,8 +1,6 @@
-from django.shortcuts import render
 from django.contrib import messages
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-#from django.views.generic.edit import FormView
 
 from .models import City
 from .forms import AddCityForm
@@ -10,7 +8,7 @@ from .forms import AddCityForm
 
 class ViewCities(ListView):
     model = City
-    template_name = 'cities/cities_list.html'
+    template_name = 'cities/view_cities.html'
     context_object_name = 'cities'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -32,7 +30,15 @@ class AddCity(CreateView):
     form_class = AddCityForm
     template_name = 'cities/add_city.html'
     success_url = reverse_lazy('cities:view_cities')
-    raise_exception = True
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, "City successfully added")
+        return super(AddCity, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Error during adding the city ")
+        return super(AddCity, self).form_invalid(form)
 
 
 class EditCity(UpdateView):
@@ -41,4 +47,22 @@ class EditCity(UpdateView):
     template_name = 'cities/edit_city.html'
     pk_url_kwarg = 'city_pk'
     success_url = reverse_lazy('cities:view_cities')
-    raise_exception = True
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, "City successfully edited")
+        return super(EditCity, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Error during editing the city")
+        return super(EditCity, self).form_invalid(form)
+
+
+class DeleteCity(DeleteView):
+    model = City
+    pk_url_kwarg = 'city_pk'
+    success_url = reverse_lazy('cities:view_cities')
+
+    def get(self, request, *args, **kwargs):
+        messages.success(self.request, "City successfully deleted")
+        return self.post(request, *args, **kwargs)
