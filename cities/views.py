@@ -29,7 +29,7 @@ class ViewCity(DetailView):
 class AddCity(CreateView):
     form_class = AddCityForm
     template_name = 'cities/add_city.html'
-    success_url = reverse_lazy('cities:view_cities')
+    success_url = reverse_lazy('cities:add_city')
 
     def form_valid(self, form):
         form.save()

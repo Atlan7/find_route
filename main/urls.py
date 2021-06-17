@@ -17,7 +17,6 @@ from django.urls import path, include
 
 from .views import home
 
-# TODO: move add_city into cities urls and call the cities include!
 
 urlpatterns = [
     path('admin/', admin.site.urls),
