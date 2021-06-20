@@ -10,6 +10,7 @@ class ViewTrains(ListView):
     model = Train
     template_name = 'trains/view_trains.html'
     context_object_name = 'trains'
+    paginate_by = 10
 
 
 class AddTrain(CreateView):
