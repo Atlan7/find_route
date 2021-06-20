@@ -11,13 +11,6 @@ class ViewCities(ListView):
     template_name = 'cities/view_cities.html'
     context_object_name = 'cities'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-    def get_queryset(self):
-        return City.objects.all()
-
 
 class ViewCity(DetailView):
     model = City
