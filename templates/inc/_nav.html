@@ -1,7 +1,7 @@
 {% url 'cities:view_cities' as view_cities_url %}
 {% url 'cities:add_city' as add_city_url %}
 {% url 'trains:view_trains' as view_trains_url %}
-
+{% url 'trains:add_train' as add_train_url %}
 
 
 <nav class="navbar navbar-expand-lg navbar-light container " style="background-color: #e3f2fd">
@@ -23,27 +23,17 @@
                     <a class="dropdown-item" href="{% url 'cities:add_city' %}">Add city</a>
                 </div>
             </li>
-            <li class="nav-item dropdown {% if request.path == view_trains_url %} active {% endif %} ">
+            <li class="nav-item dropdown {% if request.path == view_trains_url or request.path == add_train_url %} active {% endif %}">
                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                      Trains
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'trains:view_trains' %}">View all cities</a>
+                    <a class="dropdown-item" href="{% url 'trains:view_trains' %}">View all trains</a>
                     <a class="dropdown-item" href="{% url 'trains:add_train' %}">Add train</a>
                 </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
             </li>
         </ul>
     </div>
