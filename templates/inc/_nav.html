@@ -1,3 +1,9 @@
+{% url 'cities:view_cities' as view_cities_url %}
+{% url 'cities:add_city' as add_city_url %}
+{% url 'trains:view_trains' as view_trains_url %}
+
+
+
 <nav class="navbar navbar-expand-lg navbar-light container " style="background-color: #e3f2fd">
     <a class="navbar-brand" href="{% url 'home' %}">Find Route</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,17 +14,23 @@
             <li class="nav-item {% if request.path == '/' %} active {% endif %} ">
                 <a class="nav-link" href="{% url 'home' %}"> Home </a>
             </li>
-            <li class="nav-item dropdown {% if request.path == '/cities/' %} active {% endif %} ">
+            <li class="nav-item dropdown {% if request.path == view_cities_url or request.path == add_city_url %} active {% endif %} ">
                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                      Cities
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{% url 'cities:view_cities' %}">View all cities</a>
-                    <a class="dropdown-item" href="{% url 'cities:add_city' %}">Add new city</a>
+                    <a class="dropdown-item" href="{% url 'cities:add_city' %}">Add city</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+            <li class="nav-item dropdown {% if request.path == view_trains_url %} active {% endif %} ">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Trains
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'trains:view_trains' %}">View all cities</a>
+                    <a class="dropdown-item" href="{% url 'trains:add_train' %}">Add train</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>

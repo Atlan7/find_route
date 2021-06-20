@@ -4,9 +4,8 @@ from django.core.exceptions import ValidationError
 from cities.models import City
 
 
-# Create your models here.
 class Train(models.Model):
-    train_number = models.CharField(max_length=50, unique=True, verbose_name='train number')
+    train_number = models.PositiveIntegerField(unique=True, verbose_name='train number')
     from_city = models.ForeignKey(
         City, on_delete=models.CASCADE, related_name='from_city_set', verbose_name='from city'
     )
@@ -17,10 +16,13 @@ class Train(models.Model):
     trip_end_time = models.DateTimeField()
 
     def clean(self):
-        if self.trip_start_time > self.trip_end_time:
-            raise ValidationError("Start time of trip can't exceed end time of trip !")
-        elif self.from_city == self.to_city:
-            raise ValidationError("Start point of departs can't be equal end point !")
+        try:
+            if self.trip_start_time > self.trip_end_time:
+                raise ValidationError("Start time of trip can't exceed end time of trip !")
+            elif self.from_city == self.to_city:
+                raise ValidationError("Start point of departs can't be equal end point !")
+        except TypeError as e:
+            pass
 
     def __str__(self):
         return f'Train number: №{self.train_number}, ' \

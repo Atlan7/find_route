@@ -1,5 +1,14 @@
 from django.contrib import admin
 
 from trains.models import Train
-# Register your models here.
+
+
+class TrainAdmin(admin.ModelAdmin):
+    class Meta:
+        model = Train
+
+
+
 admin.site.register(Train)
+
+

@@ -23,6 +23,11 @@
                 </button>
             </a>
             <br>
+        </div>
+    </div>
+
+{% endblock %}
+
             <a href="{% url 'trains:edit_train' train_pk=train.pk   %}" class="text-decoration-none">
                 <button type="button" class="btn btn-primary btn-block"> 
                     Edit train
@@ -34,8 +39,3 @@
                     Delete train
                 </button>
             </a>
-        </div>
-    </div>
-
-{% endblock %}
-

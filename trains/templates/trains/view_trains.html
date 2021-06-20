@@ -44,6 +44,18 @@
                         <td>
                             {{ train.trip_end_time|subtract_date:train.trip_start_time }}
                         </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="my-3">
+        {% include "inc/_paginantion.html" %}
+    </div>
+{% endblock %}
+
                         <td>
                             <a href="{% url 'trains:edit_train' train_pk=train.pk %}" class="text-decoration-none">
                                 <button type="submit" class="btn btn-primary ">
@@ -58,14 +70,3 @@
                                 </button>
                             </a>
                         </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="my-3">
-        {% include "inc/_paginantion.html" %}
-    </div>
-{% endblock %}
