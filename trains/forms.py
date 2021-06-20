@@ -36,7 +36,7 @@ class AddTrainForm(forms.ModelForm):
         )
     )
     trip_start_time = forms.DateTimeField(
-        label='From',
+        label='Start time',
         input_formats=['%d-%m-%Y %H:%M'],
         widget=forms.DateTimeInput(
             attrs={
@@ -46,7 +46,7 @@ class AddTrainForm(forms.ModelForm):
         )
     )
     trip_end_time = forms.DateTimeField(
-        label='To',
+        label='End time',
         input_formats=['%d-%m-%Y %H:%M'],
         widget=forms.DateTimeInput(
             attrs={
