@@ -44,6 +44,20 @@
                         <td>
                             {{ train.trip_end_time|subtract_date:train.trip_start_time }}
                         </td>
+                        <td>
+                            <a href="{% url 'trains:edit_train' train_pk=train.pk %}" class="text-decoration-none">
+                                <button type="submit" class="btn btn-primary ">
+                                    Edit
+                                </button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'trains:delete_train' train_pk=train.pk %}">
+                                <button type="submit" class="btn btn-danger ">
+                                    Delete
+                                </button>
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -56,17 +70,3 @@
     </div>
 {% endblock %}
 
-                        <td>
-                            <a href="{% url 'trains:edit_train' train_pk=train.pk %}" class="text-decoration-none">
-                                <button type="submit" class="btn btn-primary ">
-                                    Edit 
-                                </button>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{% url 'trains:delete_train' train_pk=train.pk %}">
-                                <button type="submit" class="btn btn-danger ">
-                                    Delete 
-                                </button>
-                            </a>
-                        </td>

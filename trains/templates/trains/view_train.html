@@ -23,16 +23,15 @@
                 </button>
             </a>
             <br>
-        </div>
-    </div>
-
-{% endblock %}
-
             <a href="{% url 'trains:edit_train' train_pk=train.pk   %}" class="text-decoration-none">
                 <button type="button" class="btn btn-primary btn-block"> 
                     Edit train
                 </button>
             </a>
+        </div>
+    </div>
+
+{% endblock %}
             <br>
             <a href="{% url 'trains:delete_train' train_pk=train.pk %}" class="text-decoration-none">
                 <button type="submit" class="btn btn-danger btn-block">
