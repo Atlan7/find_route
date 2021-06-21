@@ -15,6 +15,10 @@ class Train(models.Model):
     trip_start_time = models.DateTimeField()
     trip_end_time = models.DateTimeField()
 
+    @property
+    def total_trip_time(self):
+        return self.trip_end_time - self.trip_start_time
+
     def clean(self):
         try:
             if self.trip_start_time > self.trip_end_time:
