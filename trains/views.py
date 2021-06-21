@@ -42,12 +42,12 @@ class EditTrain(UpdateView):
     pk_url_kwarg = 'train_pk'
     success_url = reverse_lazy('trains:view_trains')
 
-    def is_valid(self, form):
+    def form_valid(self, form):
         form.save()
         messages.success(self.request, "Train successfully edited")
         return super(EditTrain, self).form_valid(form)
 
-    def is_invalid(self, form):
+    def form_invalid(self, form):
         messages.error(self.request, "Error during adding train")
         return super(EditTrain, self).form_invalid(form)
 
