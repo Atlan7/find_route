@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load subtract %}
 
 {% block title %}
     View trains
@@ -42,7 +41,7 @@
                             {{ train.trip_end_time|date:"d/m/y, H:i" }}
                         </td>
                         <td>
-                            {{ train.trip_end_time|subtract_date:train.trip_start_time }}
+                            {{ train.total_trip_time }}
                         </td>
                         <td>
                             <a href="{% url 'trains:edit_train' train_pk=train.pk %}" class="text-decoration-none">

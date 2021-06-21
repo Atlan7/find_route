@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load subtract %}
 
 {% block title %}
     Train: {{ train.train_number}}
@@ -15,7 +14,7 @@
             <h3> Train number: {{ train.train_number }} </h3>
             <h4> Start at: {{ train.trip_end_time|date:"d/m/y, H:i" }} </h4>
             <h4> Arrive at: {{ train.trip_end_time|date:"d/m/y, H:i" }} </h4>
-            <h4> Total trip time: {{ train.trip_end_time|subtract_date:train.trip_start_time }} </h4>
+            <h4> Total trip time: {{ train.total_trip_time }} </h4>
 
             <a href="{% url 'trains:view_trains'  %}" class="text-decoration-none">
                 <button type="button" class="btn btn-primary btn-block" >
