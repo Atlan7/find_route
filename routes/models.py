@@ -16,6 +16,10 @@ class Route(models.Model):
     trip_end_time = models.DateTimeField()
     trains = models.ManyToManyField(Train, verbose_name='List of trains')
 
+    @property
+    def total_trip_time(self):
+        return self.trip_end_time - self.trip_start_time
+
     def __str__(self):
         return f'Route: {self.route_name}, '\
                f'goes from: {self.from_city} ' \
