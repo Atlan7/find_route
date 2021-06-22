@@ -1,3 +1,18 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Route
+
+
+@admin.register(Route)
+class AdminRoute(admin.ModelAdmin):
+    list_display = (
+        'route_name',
+        'from_city',
+        'to_city',
+        'trip_start_time',
+        'trip_end_time',
+        'total_trip_time',
+    )
+
+
+
