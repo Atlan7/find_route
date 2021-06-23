@@ -10,6 +10,7 @@ class ViewCities(ListView):
     model = City
     template_name = 'cities/view_cities.html'
     context_object_name = 'cities'
+    paginate_by = 10
 
 
 class ViewCity(DetailView):
