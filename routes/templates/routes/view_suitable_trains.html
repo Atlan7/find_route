@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    View trains
+{% endblock %}
+
+{% block content %}
+    <div class="row" >
+        <div class="col-md-10 mx-auto my-1">
+            <h3> Schedule for route: {{ cities.from_city }}-{{ cities.to_city }}</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> № </th>
+                        <th> Departs </th>
+                        <th> Arrives </th>
+                        <th> Total trip time </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for train in trains_for_route %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'trains:view_train' train_pk=train.pk %}"> {{ train.train_number }} </a>
+                        </td>
+                        <td>
+                            {{ train.trip_start_time|date:"d/m/y, H:i"}}
+                        </td>
+                        <td>
+                            {{ train.trip_end_time|date:"d/m/y, H:i" }}
+                        </td>
+                        <td>
+                            {{ train.total_trip_time }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="my-3">
+        {% include "inc/_paginantion.html" %}
+    </div>
+{% endblock %}
+
