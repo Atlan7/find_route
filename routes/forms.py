@@ -1,6 +1,7 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from datetime import datetime, timedelta
 
-from routes.models import Route
 from cities.models import City
 
 
@@ -23,33 +24,33 @@ class FindRouteForm(forms.Form):
             }
         )
     )
-    trip_start_time = forms.DateTimeField(
-        label='Start time',
-        input_formats=['%d-%m-%Y %H:%M'],
-        widget=forms.DateTimeInput(
+    initial_period_for_route  = forms.DateField(
+        label='Choice initial period for route',
+        input_formats=['%d-%m-%Y'],
+        widget=forms.DateInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': '31-12-2021 20:20'
+                'placeholder': f'{datetime.now():%d-%m-%Y}'
             }
         )
     )
-    trip_end_time = forms.DateTimeField(
-        label='End time',
-        input_formats=['%d-%m-%Y %H:%M'],
-        widget=forms.DateTimeInput(
+    end_route_period = forms.DateField(
+        label='Choice end of the period',
+        input_formats=['%d-%m-%Y'],
+        widget=forms.DateInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': '31-12-2021 20:20'
+                'placeholder': f'{datetime.now() + timedelta(days=5):%d-%m-%Y}'
             }
         )
-    )
-    through_cities = forms.ModelMultipleChoiceField(
-        label='Through cities',
-        queryset=City.objects.all(),
-        required=False,
-        widget=forms.SelectMultiple(
-            attrs={
-                'class': 'form-control js-example-basic-multiple'
-            }
-        )
-    )
+   )
+
+
+    def clean_end_route_period(self):
+        end_route_period = self.cleaned_data['end_route_period']
+        initial_period_for_route = self.cleaned_data['initial_period_for_route']
+        if end_route_period < initial_period_for_route:
+            raise ValidationError("End route period can't be less than initial")
+
+        return end_route_period
+
