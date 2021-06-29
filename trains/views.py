@@ -12,6 +12,9 @@ class ViewTrains(ListView):
     context_object_name = 'trains'
     paginate_by = 10
 
+    def get_queryset(self):
+        return Train.objects.all().select_related('from_city', 'to_city')
+
 
 class AddTrain(CreateView):
     form_class = AddTrainForm
