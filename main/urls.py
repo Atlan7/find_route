@@ -16,14 +16,18 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 
+from .views import About
 from routes.views import FindRoute
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', FindRoute.as_view(), name='find_route'),
+    path('about/', About.as_view(), name='about'),
     path('cities/', include(('cities.urls', 'cities'), namespace='cities')),
     path('trains/', include(('trains.urls', 'trains'), namespace='trains')),
+    path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+
 ]
 
 
