@@ -27,7 +27,6 @@ urlpatterns = [
     path('cities/', include(('cities.urls', 'cities'), namespace='cities')),
     path('trains/', include(('trains.urls', 'trains'), namespace='trains')),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
-
 ]
 
 
