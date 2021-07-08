@@ -2,6 +2,9 @@ from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import user_passes_test
+
 from .models import Train
 from .forms import AddTrainForm
 
@@ -16,7 +19,16 @@ class ViewTrains(ListView):
         return Train.objects.all().select_related('from_city', 'to_city')
 
 
+class ViewTrain(DetailView):
+    model = Train
+    template_name = 'trains/view_train.html'
+    context_object_name = 'train'
+    pk_url_kwarg = 'train_pk'
+
+
+@method_decorator(user_passes_test(lambda user: user.is_superuser, login_url=reverse_lazy('about')),  name='dispatch')
 class AddTrain(CreateView):
+    """Class for adding the train by superuser"""
     form_class = AddTrainForm
     template_name = 'trains/add_train.html'
     success_url = reverse_lazy('trains:add_train')
@@ -31,14 +43,9 @@ class AddTrain(CreateView):
         return super(AddTrain, self).form_invalid(form)
 
 
-class ViewTrain(DetailView):
-    model = Train
-    template_name = 'trains/view_train.html'
-    context_object_name = 'train'
-    pk_url_kwarg = 'train_pk'
-
-
+@method_decorator(user_passes_test(lambda user: user.is_superuser, login_url=reverse_lazy('about')),  name='dispatch')
 class EditTrain(UpdateView):
+    """Class for editing the train by superuser"""
     model = Train
     form_class = AddTrainForm
     template_name = 'trains/edit_train.html'
@@ -55,7 +62,9 @@ class EditTrain(UpdateView):
         return super(EditTrain, self).form_invalid(form)
 
 
+@method_decorator(user_passes_test(lambda user: user.is_superuser, login_url=reverse_lazy('about')),  name='dispatch')
 class DeleteTrain(DeleteView):
+    """Class for deleting the train by superuser"""
     model = Train
     pk_url_kwarg = 'train_pk'
     success_url = reverse_lazy('trains:view_trains')
