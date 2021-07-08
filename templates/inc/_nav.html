@@ -1,4 +1,5 @@
 {% url 'find_route' as find_route_url %}
+{% url 'about' as about_url %}
 {% url 'cities:view_cities' as view_cities_url %}
 {% url 'cities:add_city' as add_city_url %}
 {% url 'trains:view_trains' as view_trains_url %}
@@ -15,25 +16,62 @@
             <li class="nav-item {% if request.path == find_route_url %} active {% endif %} ">
                 <a class="nav-link" href="{% url 'find_route' %}"> Home </a>
             </li>
-            <li class="nav-item dropdown {% if request.path == view_cities_url or request.path == add_city_url %} active {% endif %} ">
-                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Cities
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'cities:view_cities' %}">View all cities</a>
-                    <a class="dropdown-item" href="{% url 'cities:add_city' %}">Add city</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown {% if request.path == view_trains_url or request.path == add_train_url %} active {% endif %}">
-                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Trains
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'trains:view_trains' %}">View all trains</a>
-                    <a class="dropdown-item" href="{% url 'trains:add_train' %}">Add train</a>
-                </div>
-            </li>
+            {% if user.is_superuser %}
+                <li class="nav-item dropdown {% if request.path == view_cities_url or request.path == add_city_url %} active {% endif %} ">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="false">
+                         Cities
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'cities:view_cities' %}">View all cities</a>
+                        <a class="dropdown-item" href="{% url 'cities:add_city' %}">Add city</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown {% if request.path == view_trains_url or request.path == add_train_url %} active {% endif %}">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" 
+                        aria-expanded="false">
+                         Trains
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'trains:view_trains' %}">View all trains</a>
+                        <a class="dropdown-item" href="{% url 'trains:add_train' %}">Add train</a>
+                    </div>
+                </li>
+
+                <li class="nav-item {% if request.path == about_url  %} active {% endif %} ">
+                    <a class="nav-link" href="{% url 'about' %}"> About </a>
+                </li>
+
+            {% else %}
+
+                <li class="nav-item {% if request.path == view_cities_url  %} active {% endif %} ">
+                    <a class="nav-link" href="{% url 'cities:view_cities' %}"> Cities </a>
+                </li>
+
+                <li class="nav-item {% if request.path == view_trains_url %} active {% endif %} ">
+                    <a class="nav-link" href="{% url 'trains:view_trains' %}"> Trains </a>
+                </li>
+
+                <li class="nav-item {% if request.path == about_url  %} active {% endif %} ">
+                    <a class="nav-link" href="{% url 'about' %}"> About </a>
+                </li>
+            {% endif %}
         </ul>
     </div>
+		{% if request.user.is_authenticated %} 
+
+	        <span class="navbar-text">
+	        	 Hello {{ user.username }} /
+	        	<a href="{% url 'accounts:logout' %}" id='logout' > logout </a>
+	        </span>
+
+		{% else %}
+
+	        <span class="navbar-text">
+	        	<a href="{% url 'accounts:registration' %}"> registration </a> | 
+	        	<a href="{% url 'accounts:login' %}"> login </a>
+	        </span>
+
+  		{% endif %}
 </nav>
 
