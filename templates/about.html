@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Info about site
+{% endblock %}
+
+{% block content %}
+        <div style="margin-left: auto;margin-right: auto;width: 650px"> 
+            <h1> About site </h1>
+            <p>
+                Hello, welcome to my pet project "Find Route", on this site you can find necessary (not real) route from 
+                one city to another by train for a certain period. 
+                Besides, you can watch <a href="{% url 'cities:view_cities' %}">cities</a> and 
+                <a href="{% url 'trains:view_trains'  %}">trains schedule.</a> 
+                If the city has routes you can watch them by click view trains from city or to city.
+            </p>
+
+            <p>
+                Also you can create an account. If you forget your password you can reset him though your email. 
+                <br>
+                <a href="https://github.com/Atlan7/find_route">Link on Github repository</a>.  
+            </p>
+        </div>
+{% endblock %}
