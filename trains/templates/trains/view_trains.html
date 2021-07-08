@@ -7,12 +7,13 @@
 {% block content %}
 
     <div class="row" >
-        <div class="col-md-10 mx-auto my-1">
+        <div class="col-md-12 mx-auto my-1">
             <h1>  Trains schedule </h1>
             <table class="table table-hover">
+                {% if user.is_superuser %}
                 <thead>
                     <tr>
-                        <th> № </th>
+                        <th> Train № </th>
                         <th> From </th>
                         <th> To </th>
                         <th> Departs </th>
@@ -23,42 +24,75 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for train in trains %}
-                    <tr>
-                        <td>
-                            <a href="{% url 'trains:view_train' train_pk=train.pk %}"> {{ train.train_number }} </a>
-                        </td>
-                        <td>
-                            {{ train.from_city }}
-                        </td>
-                        <td>
-                            {{ train.to_city }}
-                        </td>
-                        <td>
-                            {{ train.trip_start_time|date:"d/m/y, H:i"}}
-                        </td>
-                        <td>
-                            {{ train.trip_end_time|date:"d/m/y, H:i" }}
-                        </td>
-                        <td>
-                            {{ train.total_trip_time }}
-                        </td>
-                        <td>
-                            <a href="{% url 'trains:edit_train' train_pk=train.pk %}" class="text-decoration-none">
-                                <button type="submit" class="btn btn-primary ">
-                                    Edit
-                                </button>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{% url 'trains:delete_train' train_pk=train.pk %}">
-                                <button type="submit" class="btn btn-danger ">
-                                    Delete
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                    {% for train in trains %}
+                        <tr>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <a href="{% url 'trains:view_train' train_pk=train.pk %}"> {{ train.train_number }} </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'cities:view_city' city_pk=train.from_city.pk %}"> {{ train.from_city }} </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'cities:view_city' city_pk=train.to_city.pk %}"> {{ train.to_city }} </a>
+                            </td>
+                            <td>
+                                {{ train.trip_start_time|date:"d/m/y, H:i"}}
+                            </td>
+                            <td>
+                                {{ train.trip_end_time|date:"d/m/y, H:i" }}
+                            </td>
+                            <td>
+                                {{ train.total_trip_time }}
+                            </td>
+                            <td>
+                                <a href="{% url 'trains:edit_train' train_pk=train.pk %}" class="text-decoration-none">
+                                    <button type="submit" class="btn btn-primary ">
+                                        Edit
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'trains:delete_train' train_pk=train.pk %}">
+                                    <button type="submit" class="btn btn-danger ">
+                                        Delete
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <thead>
+                        <tr>
+                            <th> Train № </th>
+                            <th> From </th>
+                            <th> To </th>
+                            <th> Departs </th>
+                            <th> Arrives </th>
+                            <th> Total </th>
+                        </tr>
+                    </thead>
+                    {% for train in trains %}
+                        <tr>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <a href="{% url 'trains:view_train' train_pk=train.pk %}"> {{ train.train_number }} </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'cities:view_city' city_pk=train.from_city.pk %}"> {{ train.from_city }} </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'cities:view_city' city_pk=train.to_city.pk %}"> {{ train.to_city }} </a>
+                            </td>
+                            <td>
+                                {{ train.trip_start_time|date:"d/m/y, H:i"}}
+                            </td>
+                            <td>
+                                {{ train.trip_end_time|date:"d/m/y, H:i" }}
+                            </td>
+                            <td>
+                                {{ train.total_trip_time }}
+                            </td>
+                    {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>
