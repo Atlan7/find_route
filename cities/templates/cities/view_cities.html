@@ -5,31 +5,40 @@
 {% block content %}
 
     <div class="row" >
-        <div class="col-md-8 mx-auto my-1">
+        <div class="col-md-5 mx-auto my-1">
             <h1> List of cities </h1>
             <table class="table table-hover">
                 <tbody>
-                    {% for city in cities %}
-                        <tr>
-                            <td>
-                                <a href="{% url 'cities:view_city' city_pk=city.pk %}"> {{ city.name }} </a>
-                            </td>
-                            <td>
-                                <a href="{% url 'cities:edit_city' city_pk=city.pk %}" class="text-decoration-none">
-                                    <button type="submit" class="btn btn-primary btn-block">
-                                        Edit city
-                                    </button>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{% url 'cities:delete_city' city_pk=city.pk %}">
-                                    <button type="submit" class="btn btn-danger">
-                                        Delete city
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                    {% if user.is_superuser %}
+                        {% for city in cities %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'cities:view_city' city_pk=city.pk %}"> {{ city.name }} </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'cities:edit_city' city_pk=city.pk %}" class="text-decoration-none">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Edit 
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'cities:delete_city' city_pk=city.pk %}">
+                                        <button type="submit" class="btn btn-danger">
+                                            Delete 
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for city in cities %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'cities:view_city' city_pk=city.pk %}"> {{ city.name }} </a>
+                                </td>
+                        {% endfor %}
+                    {% endif %}
                 </tbody>
             </table>
         </div>
