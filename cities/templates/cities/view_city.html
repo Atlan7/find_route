@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_tags %}
 
 
 {% block title %}
@@ -12,15 +13,41 @@
             <h4> Name of the city: {{ city.name }}</h4>
             <a href="{% url 'cities:view_cities'  %}" class="text-decoration-none">
                 <button type="button" class="btn btn-primary btn-block" >
-                    Go back to all cities
+                    Go to all cities
                 </button>
             </a>
             <br>
-            <a href="{% url 'cities:edit_city' city_pk=city.pk   %}" class="text-decoration-none">
-                <button type="button" class="btn btn-primary btn-block"> 
-                    Edit city
-                </button>
-            </a>
+            {% if city|has_trains_from_city %}
+                <a href="{% url 'cities:trains_from_city' from_city_pk=city.pk  %}" class="text-decoration-none">
+                    <button type="button" class="btn btn-primary btn-block" >
+                        View trains from {{ city.name }}
+                    </button>
+                </a>
+            <br>
+            {% endif %}
+
+            {% if city|has_trains_to_city %}
+                <a href="{% url 'cities:trains_to_city' to_city_pk=city.pk  %}" class="text-decoration-none">
+                    <button type="button" class="btn btn-primary btn-block" >
+                        View trains to {{ city.name }}
+                    </button>
+                </a>
+            <br>
+            {% endif %}
+
+            {% if user.is_superuser %}
+                <a href="{% url 'cities:edit_city' city_pk=city.pk   %}" class="text-decoration-none">
+                    <button type="button" class="btn btn-primary btn-block">
+                        Edit {{ city.name }}
+                    </button>
+                </a>
+                <br>
+                <a href="{% url 'cities:delete_city' city_pk=city.pk %}" class="text-decoration-none">
+                    <button type="submit" class="btn btn-danger btn-block">
+                        Delete {{ city.name }}
+                    </button>
+                </a>
+            {% endif %}
         </div>
     </div>
 
