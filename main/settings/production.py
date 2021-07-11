@@ -104,9 +104,9 @@ DATABASES = {
 
 import dj_database_url
 
-db = dj_database_url.config()
-DATABASES['default'].update(db)
-
+DATABASES = {
+    'default': dj_database_url.config()
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
