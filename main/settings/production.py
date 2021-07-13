@@ -95,11 +95,7 @@ DATABASES = {
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
         'HOST': DB_HOST,
-<<<<<<< HEAD
-        'PORT': 5432
-=======
         'PORT': '5432',
->>>>>>> temp
     }
 }
 
